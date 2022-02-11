@@ -1,11 +1,13 @@
 package com.jagakarur.nycschoolsdetails.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.compose.NavHost
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jagakarur.nycschoolsdetails.Constants.DETAILS_ARGUMENT_KEY
 import com.jagakarur.nycschoolsdetails.presentation.screens.splash.SplashScreen
 import com.jagakarur.nycschoolsdetails.presentation.screens.welcome.WelcomeScreen
@@ -15,7 +17,8 @@ import com.jagakarur.nycschoolsdetails.presentation.screens.welcome.WelcomeScree
  * NavHostController will pass from MainActivity
  *
  */
-
+@ExperimentalAnimationApi
+@ExperimentalPagerApi
 @Composable
 fun SetupNavGraph(navController: NavHostController){
 
