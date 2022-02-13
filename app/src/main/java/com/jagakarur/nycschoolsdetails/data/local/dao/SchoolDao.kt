@@ -17,7 +17,7 @@ interface SchoolDao {
     fun getSelectedSchool(dbn: String): School
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addSchools(heroes: List<School>)
+    suspend fun addSchools(schools: List<School>)
 
     @Query("DELETE FROM school_table")
     suspend fun deleteAllSchools()

@@ -6,12 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.jagakarur.nycschoolsdetails.navigation.SetupNavGraph
 import com.jagakarur.nycschoolsdetails.ui.theme.NYCSchoolsDetailsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 //Telling where to inject those dependencies which provide
+@ExperimentalCoilApi
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @AndroidEntryPoint
