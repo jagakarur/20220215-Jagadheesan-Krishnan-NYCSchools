@@ -7,15 +7,19 @@ import androidx.paging.PagingData
 import com.jagakarur.nycschoolsdetails.util.Constants.ITEMS_PER_PAGE
 import com.jagakarur.nycschoolsdetails.data.local.SchoolDatabase
 import com.jagakarur.nycschoolsdetails.data.paging_source.SchoolRemoteMediator
+import com.jagakarur.nycschoolsdetails.data.paging_source.SearchSchoolsSource
 import com.jagakarur.nycschoolsdetails.data.remote.NycSchoolApi
 import com.jagakarur.nycschoolsdetails.domain.model.School
+import com.jagakarur.nycschoolsdetails.domain.model.SchoolScore
 import com.jagakarur.nycschoolsdetails.domain.repository.RemoteDataSource
 import kotlinx.coroutines.flow.Flow
 
 @ExperimentalPagingApi
-class RemoteDataSourceImpl( 
+class RemoteDataSourceImpl(
     private val nycSchoolApi: NycSchoolApi,
-    private val schoolDatabase: SchoolDatabase): RemoteDataSource {
+    private val schoolDatabase: SchoolDatabase
+    //private val schoolScoreDatabase: SchoolScoreDatabase,
+): RemoteDataSource {
 
     private val schoolDao = schoolDatabase.schoolDao()
 
@@ -31,8 +35,19 @@ class RemoteDataSourceImpl(
         ).flow
     }
 
-    override fun searchSchool(): Flow<PagingData<School>> {
-        TODO("Not yet implemented")
+    override fun searchSchool(query: String): Flow<PagingData<School>> {
+        return Pager(
+            config = PagingConfig(pageSize = ITEMS_PER_PAGE),
+            pagingSourceFactory = {
+                SearchSchoolsSource(nycSchoolApi = nycSchoolApi, query = query)
+            }
+        ).flow
     }
+
+    //TODO: Need to write school score details to local db
+    override suspend fun getSelectedSchoolScore(dbn: String): List<SchoolScore> {
+        return nycSchoolApi.getSchoolScore(dbn = dbn)
+    }
+
 
 }

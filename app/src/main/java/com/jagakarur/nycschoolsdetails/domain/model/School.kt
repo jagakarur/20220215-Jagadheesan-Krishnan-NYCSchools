@@ -16,8 +16,10 @@ data class School(
     @SerialName("school_name")
     val schoolName: String?,
     @SerialName("school_email")
-    val schoolEmail: String? = "No Email"
+    val schoolEmail: String? = null,
+    @SerialName("graduation_rate")
+    val graduationRate: String? = null
 )
 
-@Serializable
-data class SchoolList(val errorMessage: String?, val schoolList: List<School?>?)
+//@Serializable
+//data class SchoolList(val errorMessage: String?, val schoolList: List<School?>?)

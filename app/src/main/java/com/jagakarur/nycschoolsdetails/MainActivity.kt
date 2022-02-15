@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
@@ -13,6 +14,7 @@ import com.jagakarur.nycschoolsdetails.ui.theme.NYCSchoolsDetailsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 //Telling where to inject those dependencies which provide
+@ExperimentalMaterialApi
 @ExperimentalCoilApi
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
@@ -25,7 +27,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NYCSchoolsDetailsTheme {
-
                 //Going to remember a new controller composable function to initialize our nav controller
                 navController = rememberNavController()
                 SetupNavGraph(navController = navController)

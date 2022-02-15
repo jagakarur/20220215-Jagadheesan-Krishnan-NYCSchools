@@ -20,10 +20,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.jagakarur.nycschoolsdetails.ui.theme.EXTRA_SMALL_PADDING
 import com.jagakarur.nycschoolsdetails.R
+import com.jagakarur.nycschoolsdetails.ui.theme.EXTRA_SMALL_PADDING
 import com.jagakarur.nycschoolsdetails.ui.theme.LightGray
 import com.jagakarur.nycschoolsdetails.ui.theme.StarColor
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 @Composable
 fun RatingWidget(
@@ -32,7 +34,7 @@ fun RatingWidget(
     scaleFactor: Float = 2f,
     spaceBetween: Dp = EXTRA_SMALL_PADDING
 ) {
-    val result = calculateStars(rating = rating)
+    val result = roundOffDecimal(rating)?.let { calculateStars(rating = it) }
 
     val starPathString = stringResource(id = R.string.star_path)
     val starPath = remember {
@@ -46,7 +48,7 @@ fun RatingWidget(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(spaceBetween)
     ) {
-        result["filledStars"]?.let {
+        result?.get("filledStars")?.let {
             repeat(it) {
                 FilledStar(
                     starPath = starPath,
@@ -55,7 +57,7 @@ fun RatingWidget(
                 )
             }
         }
-        result["halfFilledStars"]?.let {
+        result?.get("halfFilledStars")?.let {
             repeat(it) {
                 HalfFilledStar(
                     starPath = starPath,
@@ -64,7 +66,7 @@ fun RatingWidget(
                 )
             }
         }
-        result["emptyStars"]?.let {
+        result?.get("emptyStars")?.let {
             repeat(it) {
                 EmptyStar(
                     starPath = starPath,
@@ -185,7 +187,7 @@ fun calculateStars(rating: Double): Map<String, Int> {
             .split(".")
             .map { it.toInt() }
 
-        if (firstNumber in 1..10&& lastNumber in 0..9) {
+        if (firstNumber in 1..10 && lastNumber in 0..9) {
             filledStars = firstNumber
             if (lastNumber in 1..5) {
                 halfFilledStars++
@@ -260,4 +262,10 @@ fun EmptyStarPreview() {
         starPathBounds = starPathBounds,
         scaleFactor = 3f
     )
+}
+
+fun roundOffDecimal(number: Double): Double? {
+    val df = DecimalFormat("#.#")
+    df.roundingMode = RoundingMode.FLOOR
+    return df.format(number).toDouble()
 }

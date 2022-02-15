@@ -16,21 +16,22 @@ class SchoolRemoteMediator @Inject constructor(
     private val schoolDatabase: SchoolDatabase
 ) : RemoteMediator<Int, School>() {
     private val schoolDao = schoolDatabase.schoolDao()
+    override suspend fun initialize(): InitializeAction {
+        return super.initialize()
+    }
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, School>): MediatorResult {
         val position = state.anchorPosition ?: 1
-        val offset = (if (state.anchorPosition != null) ((position - 1) * 10) + 1 else 1) - 1
+        val offset = (if (state.anchorPosition != null) ((position - 1) * 10) + 1 else 0)
         return try {
-            val response = nycSchoolApi.getAllSchools(page = offset)
-            if (true) {
-                schoolDatabase.withTransaction {
-                    if (loadType == LoadType.REFRESH) {
-                        schoolDao.deleteAllSchools()
-                    }
-                    schoolDao.addSchools(schools = response)
+            val response = nycSchoolApi.getAllSchools(offset = offset)
+            schoolDatabase.withTransaction {
+                if (loadType == LoadType.REFRESH) {
+                    schoolDao.deleteAllSchools()
                 }
+                schoolDao.addSchools(schools = response)
             }
-            MediatorResult.Success(endOfPaginationReached = response == null)
+            MediatorResult.Success(endOfPaginationReached = response.size<10)
         } catch (e: Exception) {
             return MediatorResult.Error(e)
 

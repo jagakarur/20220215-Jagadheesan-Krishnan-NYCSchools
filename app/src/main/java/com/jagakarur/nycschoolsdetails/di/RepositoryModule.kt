@@ -6,8 +6,11 @@ import com.jagakarur.nycschoolsdetails.data.repository.Repository
 import com.jagakarur.nycschoolsdetails.domain.repository.DataStoreOperations
 import com.jagakarur.nycschoolsdetails.domain.use_cases.UseCases
 import com.jagakarur.nycschoolsdetails.domain.use_cases.get_all_schools.GetAllSchoolsUseCase
+import com.jagakarur.nycschoolsdetails.domain.use_cases.get_selected_school.GetSelectedSchoolUseCase
+import com.jagakarur.nycschoolsdetails.domain.use_cases.get_sellected_school_score.GetSelectedSchoolScoreUseCase
 import com.jagakarur.nycschoolsdetails.domain.use_cases.read_onboarding.ReadOnBoardingUseCase
 import com.jagakarur.nycschoolsdetails.domain.use_cases.save_onboarding.SaveOnBoardingUseCase
+import com.jagakarur.nycschoolsdetails.domain.use_cases.search_schools.SearchSchoolsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,8 +37,10 @@ object RepositoryModule {
         return UseCases(
             saveOnBoardingUseCase = SaveOnBoardingUseCase(repository),
             readOnBoardingUseCase = ReadOnBoardingUseCase(repository),
-            getAllSchoolsUseCase = GetAllSchoolsUseCase(repository)
-
+            getAllSchoolsUseCase = GetAllSchoolsUseCase(repository),
+            searchSchoolsUseCase = SearchSchoolsUseCase(repository),
+            getSelectedSchoolUseCase = GetSelectedSchoolUseCase(repository),
+            getSelectedSchoolScoreUseCase = GetSelectedSchoolScoreUseCase(repository),
         )
     }
 

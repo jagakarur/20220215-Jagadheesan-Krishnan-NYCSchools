@@ -1,15 +1,19 @@
 package com.jagakarur.nycschoolsdetails.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.compose.NavHost
+import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.jagakarur.nycschoolsdetails.presentation.screens.details.DetailsScreen
 import com.jagakarur.nycschoolsdetails.util.Constants.DETAILS_ARGUMENT_KEY
 import com.jagakarur.nycschoolsdetails.presentation.screens.home.HomeScreen
+import com.jagakarur.nycschoolsdetails.presentation.screens.search.SearchScreen
 import com.jagakarur.nycschoolsdetails.presentation.screens.splash.SplashScreen
 import com.jagakarur.nycschoolsdetails.presentation.screens.welcome.WelcomeScreen
 
@@ -18,6 +22,8 @@ import com.jagakarur.nycschoolsdetails.presentation.screens.welcome.WelcomeScree
  * NavHostController will pass from MainActivity
  *
  */
+@ExperimentalMaterialApi
+@ExperimentalCoilApi
 @ExperimentalAnimationApi
 @ExperimentalPagerApi
 @Composable
@@ -42,10 +48,10 @@ fun SetupNavGraph(navController: NavHostController){
                 type = NavType.StringType
             })
         ) {
-
+            DetailsScreen(navHostController = navController)
         }
         composable(route = Screen.Search.route) {
-
+            SearchScreen(navController = navController)
         }
     }
 

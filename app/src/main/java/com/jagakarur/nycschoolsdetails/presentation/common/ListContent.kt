@@ -20,14 +20,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
-import com.jagakarur.nycschoolsdetails.R.drawable.ic_placeholder
 import com.jagakarur.nycschoolsdetails.domain.model.School
 import com.jagakarur.nycschoolsdetails.navigation.Screen
 import com.jagakarur.nycschoolsdetails.presentation.components.RatingWidget
+import com.jagakarur.nycschoolsdetails.presentation.components.ShimmerEffect
 import com.jagakarur.nycschoolsdetails.ui.theme.*
 
 @ExperimentalCoilApi
@@ -36,9 +36,9 @@ fun ListContent(
     schools: LazyPagingItems<School>,
     navController: NavHostController
 ) {
-    // val result = handlePagingResult(schools = schools)
+     val result = handlePagingResult(schools = schools)
     Log.d("ListContent", schools.loadState.toString())
-    //if (result) {
+    if (result) {
     LazyColumn(
         contentPadding = PaddingValues(all = SMALL_PADDING),
         verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
@@ -55,37 +55,37 @@ fun ListContent(
         }
     }
 }
-//}
+}
 
-//@Composable
-//fun handlePagingResult(
-//    schools: LazyPagingItems<School>
-//): Boolean {
-//    schools.apply {
-//        val error = when {
-//            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-//            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-//            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-//            else -> null
-//        }
-//
-//        return when {
-//            loadState.refresh is LoadState.Loading -> {
-//                ShimmerEffect()
-//                false
-//            }
-//            error != null -> {
-//                EmptyScreen(error = error, schools = schools)
-//                false
-//            }
-//            schools.itemCount < 1 -> {
-//                EmptyScreen()
-//                false
-//            }
-//            else -> true
-//        }
-//    }
-//}
+@Composable
+fun handlePagingResult(
+    schools: LazyPagingItems<School>
+): Boolean {
+    schools.apply {
+        val error = when {
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            else -> null
+        }
+
+        return when {
+            loadState.refresh is LoadState.Loading -> {
+                ShimmerEffect()
+                false
+            }
+            error != null -> {
+                EmptyScreen(error = error, schools = schools)
+                false
+            }
+            schools.itemCount < 1 -> {
+                EmptyScreen()
+                false
+            }
+            else -> true
+        }
+    }
+}
 
 @ExperimentalCoilApi
 @Composable
@@ -93,10 +93,10 @@ fun SchoolItem(
     school: School,
     navController: NavHostController
 ) {
-    val painter = rememberImagePainter(data = "") {
-        placeholder(ic_placeholder)
-        error(ic_placeholder)
-    }
+//    val painter = rememberImagePainter(data = "") {
+//        placeholder(ic_placeholder)
+//        error(ic_placeholder)
+//    }
 
     Box(
         modifier = Modifier
@@ -154,15 +154,39 @@ fun SchoolItem(
                     modifier = Modifier.padding(top = SMALL_PADDING),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    RatingWidget(
-                        modifier = Modifier.padding(end = SMALL_PADDING),
-                        rating = 5.7
-                    )
-                    Text(
-                        text = "(${5.7})",
-                        textAlign = TextAlign.Center,
-                        color = Color.White.copy(alpha = ContentAlpha.medium)
-                    )
+                    school.graduationRate?.let {
+                        Column {
+                            Row(
+                                modifier = Modifier.padding(top = SMALL_PADDING),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "Graduation Rate: ",
+                                    textAlign = TextAlign.Left,
+                                    fontSize = MaterialTheme.typography.caption.fontSize,
+                                    color = Color.White.copy(alpha = ContentAlpha.medium)
+                                )
+                            }
+
+                            Row(
+                                modifier = Modifier.padding(top = SMALL_PADDING),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                RatingWidget(
+                                    modifier = Modifier.padding(end = SMALL_PADDING),
+                                    rating = it.toDouble() * 10.0
+                                )
+                            }
+                        }
+                    }
+
+
+//                    Text(
+//                        text = "(${it.toDouble() * 10.0})",
+//                        textAlign = TextAlign.Center,
+//                        color = Color.White.copy(alpha = ContentAlpha.medium)
+//                    )
+
                 }
             }
         }
@@ -177,11 +201,13 @@ fun SchoolItemPreview() {
         school = School(
             dbn = "String",
             schoolName = "String",
-            schoolEmail = "String"
+            schoolEmail = "String",
+            graduationRate = "5.2"
         ),
         navController = rememberNavController()
     )
 }
+
 @ExperimentalCoilApi
 @Composable
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -190,7 +216,8 @@ fun SchoolItemDarkPreview() {
         school = School(
             dbn = "String",
             schoolName = "String",
-            schoolEmail = "String"
+            schoolEmail = "String",
+            graduationRate = "5.2"
         ),
         navController = rememberNavController()
     )

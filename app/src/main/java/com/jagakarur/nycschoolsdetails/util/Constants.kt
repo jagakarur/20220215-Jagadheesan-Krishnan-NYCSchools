@@ -2,9 +2,11 @@ package com.jagakarur.nycschoolsdetails.util
 
 object Constants {
     const val BASE_URL = "https://data.cityofnewyork.us"
-    const val DETAILS_ARGUMENT_KEY = "bdn"
+    const val DETAILS_ARGUMENT_KEY = "dbn"
     const val SCHOOL_DATABASE= "school_database"
     const val SCHOOL_DATABASE_TABLE = "school_table"
+    const val SCHOOL_SCORE_DATABASE_TABLE = "school_score_table"
+
     const val SCHOOL_REMOTE_KEYS_DATABASE_TABLE = "school_remote_keys_table"
 
     const val ON_BOARDING_PAGE_COUNT = 3
