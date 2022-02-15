@@ -40,7 +40,7 @@ val Colors.activeIndicatorColor
 
 val Colors.activeHeaderColor
     @Composable
-    get() = if (isLight) Color.White else Purple700
+    get() = if (isLight) Purple500 else Color.White
 
 val Colors.inactiveIndicatorColor
     @Composable
