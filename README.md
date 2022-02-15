@@ -1,4 +1,22 @@
 # NYC_Schools_Details
+
+Android project details:
+    
+This application will help people to find the NYC school list and  SAT Score details for selected schools in NYC. 
+
+Following Highlights Covered in the Project:
+        Dagger - Hilt - Dependency injection 
+        Retrofit - HTTP client
+        Room components - Local DB
+        Compose - UI/UX
+        Horizontal Pager and Indicators (Welcome screen)
+        paging3
+        Swipe to Refresh
+        Error pages
+        UnitTest
+
+
+
 ![Screenshot_20220214-234750](https://user-images.githubusercontent.com/13125450/153994918-e6addeac-b437-497b-bc17-5bf4c650b511.png)
 ![Screenshot_20220214-234819](https://user-images.githubusercontent.com/13125450/153994920-f096f747-ff59-4a0f-b691-7874974b0114.png)
 ![Screenshot_20220214-234832](https://user-images.githubusercontent.com/13125450/153994921-67d8d435-1967-4b4d-8351-d62850986bb2.png)
