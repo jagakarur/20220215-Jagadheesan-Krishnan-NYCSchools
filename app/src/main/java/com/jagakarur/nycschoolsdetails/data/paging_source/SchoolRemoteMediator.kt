@@ -22,7 +22,7 @@ class SchoolRemoteMediator @Inject constructor(
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, School>): MediatorResult {
         val position = state.anchorPosition ?: 1
-        val offset = (if (state.anchorPosition != null) ((position - 1) * 10) + 1 else 0)
+        val offset = (if (state.anchorPosition != null) ((position - 1) * 100) + 1 else 0)
         return try {
             val response = nycSchoolApi.getAllSchools(offset = offset)
             schoolDatabase.withTransaction {
@@ -31,7 +31,8 @@ class SchoolRemoteMediator @Inject constructor(
                 }
                 schoolDao.addSchools(schools = response)
             }
-            MediatorResult.Success(endOfPaginationReached = response.size<10)
+            //TODO: Need to create pagekey model to control the pagination
+            MediatorResult.Success(endOfPaginationReached = true)
         } catch (e: Exception) {
             return MediatorResult.Error(e)
 
