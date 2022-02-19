@@ -54,7 +54,7 @@ class FakeNycSchoolApi : NycSchoolApi {
     )
 
 
-    override suspend fun getAllSchools(offset: Int, limit: Int): List<School> {
+    override suspend fun getAllSchools(offset: Int, limit: Int, order: String): List<School> {
         return schools
     }
 
