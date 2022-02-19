@@ -31,7 +31,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideHttpClient(): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
+       val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS)
 
         return OkHttpClient.Builder()
@@ -45,7 +45,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
         val contentType = "application/json".toMediaType()
-        val json = Json { ignoreUnknownKeys = true; isLenient = true }
+        val json = Json { ignoreUnknownKeys = true;}
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)

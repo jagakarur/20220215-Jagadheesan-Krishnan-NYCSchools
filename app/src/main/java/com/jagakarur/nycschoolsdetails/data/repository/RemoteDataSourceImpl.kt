@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.Flow
 class RemoteDataSourceImpl(
     private val nycSchoolApi: NycSchoolApi,
     private val schoolDatabase: SchoolDatabase
-    //private val schoolScoreDatabase: SchoolScoreDatabase,
 ): RemoteDataSource {
 
     private val schoolDao = schoolDatabase.schoolDao()

@@ -9,7 +9,8 @@ interface NycSchoolApi {
     @GET("/resource/s3k6-pzi2.json")
     suspend fun getAllSchools(
         @Query("${'$'}offset") offset: Int,
-        @Query("${'$'}limit") limit: Int = 300,
+        @Query("${'$'}limit") limit: Int,
+        @Query("${'$'}order") order: String ="school_name"
     ): List<School>
 
     @GET("/resource/s3k6-pzi2.json")

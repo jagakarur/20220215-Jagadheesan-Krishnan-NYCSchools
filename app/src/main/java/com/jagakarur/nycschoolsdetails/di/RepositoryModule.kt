@@ -40,7 +40,7 @@ object RepositoryModule {
             getAllSchoolsUseCase = GetAllSchoolsUseCase(repository),
             searchSchoolsUseCase = SearchSchoolsUseCase(repository),
             getSelectedSchoolUseCase = GetSelectedSchoolUseCase(repository),
-            getSelectedSchoolScoreUseCase = GetSelectedSchoolScoreUseCase(repository),
+            getSelectedSchoolScoreUseCase = GetSelectedSchoolScoreUseCase(repository)
         )
     }
 

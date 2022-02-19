@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable()
 @Entity(tableName = SCHOOL_DATABASE_TABLE)
 data class School(
-    @PrimaryKey()
+    @PrimaryKey(autoGenerate = false)
     @SerialName("dbn")
     val dbn: String,
     @SerialName("school_name")

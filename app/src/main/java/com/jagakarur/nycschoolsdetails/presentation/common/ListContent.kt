@@ -93,10 +93,6 @@ fun SchoolItem(
     school: School,
     navController: NavHostController
 ) {
-//    val painter = rememberImagePainter(data = "") {
-//        placeholder(ic_placeholder)
-//        error(ic_placeholder)
-//    }
 
     Box(
         modifier = Modifier
@@ -106,14 +102,6 @@ fun SchoolItem(
             },
         contentAlignment = Alignment.BottomStart
     ) {
-//        Surface(shape = RoundedCornerShape(size = LARGE_PADDING)) {
-//            Image(
-//                modifier = Modifier.fillMaxSize(),
-//                painter = painter,
-//                contentDescription = stringResource(R.string.image_placeholder),
-//                contentScale = ContentScale.Crop
-//            )
-//        }
         Surface(
             modifier = Modifier
                 .fillMaxHeight(4f)
