@@ -16,7 +16,7 @@ fun HomeTopBar(onSearchClicked: () -> Unit) {
     TopAppBar(
         title = {
             Text(
-                text = "Explore",
+                text = "NYC Schools List",
                 color = MaterialTheme.colors.topAppBarContentColor
             )
         },

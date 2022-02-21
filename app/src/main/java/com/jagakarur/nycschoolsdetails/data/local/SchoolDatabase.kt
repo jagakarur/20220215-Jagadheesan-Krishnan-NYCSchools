@@ -10,7 +10,7 @@ import com.jagakarur.nycschoolsdetails.data.local.dao.SchoolRemoteKeyDao
 import com.jagakarur.nycschoolsdetails.domain.model.School
 import com.jagakarur.nycschoolsdetails.domain.model.SchoolRemoteKey
 
-@Database(entities = [School::class, SchoolRemoteKey::class], version = 1)
+@Database(entities = [School::class, SchoolRemoteKey::class], version = 1, exportSchema = false)
 @TypeConverters(DatabaseConverter::class)
 abstract class SchoolDatabase : RoomDatabase() {
 

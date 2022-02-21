@@ -43,19 +43,23 @@ class SchoolRemoteMediator @Inject constructor(
 
             val page = when (loadType) {
                 LoadType.REFRESH -> {
+                    Log.v("LoadType--->","Refresh -----> Load Type------>")
                     val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                     remoteKeys?.nextPage?.minus(1) ?: initialPage
                 }
                 LoadType.PREPEND -> {
+                    Log.v("LoadType--->","PREPEND -----> Load Type------>")
                     return MediatorResult.Success(true)
                 }
                 LoadType.APPEND -> {
+                    Log.v("LoadType--->","APPEND -----> Load Type------>")
                     val remoteKeys = getRemoteKeyForLastItem(state)
                         ?: throw InvalidObjectException("Result is empty")
+                    Log.v("LoadType--->",remoteKeys.nextPage.toString())
                     remoteKeys.nextPage ?: return MediatorResult.Success(true)
                 }
             }
-            val offset = (if (page != 0) (page * 100) else 0)
+            val offset = (if (page != null && page != 0) (page * 100) else 0)
 
             val response = nycSchoolApi.getAllSchools(offset = offset, limit = ITEMS_PER_PAGE)
                 .sortedBy { it.schoolName }
